@@ -1,13 +1,11 @@
-import { useState } from 'react'
+import { ThemeProvider } from "@/components/theme-provider";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 className='text-8xl font-bold'>Kavya Path</h1>
-    </>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      {children}
+    </ThemeProvider>
   )
 }
 
-export default App
+export default App;
