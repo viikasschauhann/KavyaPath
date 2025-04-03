@@ -18,7 +18,7 @@ function LandingPage() {
           </div>
           <div className="max-w-3xl">
             <h1 className="text-6xl font-bold text-slate-50 mb-6">
-              काव्यधारा
+              काव्यपथ
             </h1>
             <p className="text-2xl text-slate-200 mb-8">
               अपनी कविताओं को लिखें, पढ़ें और साझा करें। हिंदी साहित्य की एक नई यात्रा।
