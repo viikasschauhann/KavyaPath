@@ -2,8 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PenLine, BookOpen, Heart, Feather } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/auth");
+  }
+
   return (
     <div className="min-h-screen bg-background font-hindi">
       {/* Hero Section */}
@@ -24,11 +32,11 @@ function LandingPage() {
               अपनी कविताओं को लिखें, पढ़ें और साझा करें। हिंदी साहित्य की एक नई यात्रा।
             </p>
             <div className="flex gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button onClick={handleButtonClick} size="lg" className="bg-primary hover:bg-blue-900 cursor-pointer">
                 लेखन शुरू करें
                 <PenLine className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="bg-slate-800/40 hover:bg-slate-800/60 text-white border-slate-600">
+              <Button size="lg" variant="outline" className="bg-slate-800/40 hover:bg-slate-200 text-white border-slate-600 cursor-pointer">
                 और जानें
                 <BookOpen className="ml-2 h-5 w-5" />
               </Button>

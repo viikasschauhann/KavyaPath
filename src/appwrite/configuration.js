@@ -137,7 +137,7 @@ export class Service{
                     config.appwritePoemCollectionId,
                     poemId,
                     {
-                        comments: updatedComments // Correct field name
+                        id: updatedComments // Correct field name
                     }
                 );
             }
@@ -151,7 +151,7 @@ export class Service{
     async uploadFile(file) {
         try {
             return await this.bucket.createFile(
-                config.appwriteBucketId,
+                config.appwritePoemImageId,
                 ID.unique(),
                 file
             )
@@ -164,7 +164,7 @@ export class Service{
     async deleteFile(fileId) {
         try {
             await this.bucket.deleteFile(
-                config.appwriteBucketId,
+                config.appwritePoemImageId,
                 fileId
             );
             return true;
@@ -176,7 +176,7 @@ export class Service{
 
     getFilePreview(fileId) {
         return this.bucket.getFilePreview(
-            config.appwriteBucketId,
+            config.appwritePoemImageId,
             fileId
         )
     }

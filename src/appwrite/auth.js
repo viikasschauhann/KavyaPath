@@ -12,9 +12,9 @@ export class AuthService {
         this.account = new Account(this.client);
     }
 
-    async createAccount({email, password, name, username}) {
+    async createAccount({email, password, name}) {
         try {
-            const userAccount = await this.account.create(ID.unique(), email, password, name, username);
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
             if(userAccount) {
                 // call another method
                 return this.login({email, password});
@@ -22,6 +22,7 @@ export class AuthService {
                 return userAccount;
             }
         } catch (error) {
+            console.error("AuthService :: createAccount :: error", error);
             throw error;
         }
     }
@@ -30,6 +31,7 @@ export class AuthService {
         try {
             return await this.account.createEmailPasswordSession(email, password);
         } catch(error) {
+            console.error("AuthService :: loginAccount :: error", error);
             throw error;
         }
     }
@@ -38,6 +40,7 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
+            console.error("AuthService :: getAccount :: error", error);
             throw error;
         }
     }
@@ -46,6 +49,7 @@ export class AuthService {
         try {
             return await this.account.deleteSessions();
         } catch (error) {
+            console.error("AuthService :: logoutAccount :: error", error);
             throw error;
         }
     }
