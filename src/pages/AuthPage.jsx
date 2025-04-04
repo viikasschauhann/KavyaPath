@@ -3,8 +3,9 @@ import { PenLine, Book, Heart } from 'lucide-react';
 import { ModeToggle } from '@/components/mode-toggle';
 import { useNavigate} from "react-router-dom";
 import { login as authLogin } from "../store/features/auth/authSlice.js";
-import { useDispatch } from "react-redux";
-import authService from "../appwrite/auth";
+import { useDispatch, useSelector } from "react-redux";
+// import authService from "../appwrite/auth";
+import { users } from '@/database/users.js';
 
 function AuthPage() {
   
@@ -30,16 +31,26 @@ function AuthPage() {
     if (isSignIn) {
 
       try {
-        const session = await authService.login({email, password});
-        if(session) {
-          const userData = await authService.getCurrentUser();
-          console.log(userData);
+        // const session = await authService.login({email, password});
+        // if(session) {
+        //   const userData = await authService.getCurrentUser();
+        //   console.log(userData);
           
-          if(userData) dispatch(authLogin({userData}));
+        //   if(userData) dispatch(authLogin({userData}));
+        //   navigate("/");
+        // }
+
+        const user = users.find(user => user.email === email && user.password === password);
+
+        if(user) {
+          dispatch(authLogin({name, email, password}));
           navigate("/");
+        } else {
+          throw new Error("Invalid email or password.");
         }
+        
       } catch (error) {
-        setError("Invalid email or password.");
+        setError(error.message);
       }
     } 
     
@@ -47,14 +58,19 @@ function AuthPage() {
       try {
         console.log(name, email, password);
         
-        const userData = await authService.createAccount({name, email, password});
+        // const userData = await authService.createAccount({name, email, password});
         
-        if(userData) {
-            const userData = await authService.getCurrentUser();
-            console.log(userData);
-            if(userData) dispatch(login(userData));
-            navigate("/");
-        }
+        // if(userData) {
+        //     const userData = await authService.getCurrentUser();
+        //     console.log(userData);
+        //     if(userData) dispatch(authlogin({userData}));
+        //     navigate("/");
+        // }
+
+        users.push({name, email, password});
+        dispatch(authLogin({name, email, password}));
+        navigate("/");
+
       } catch (error) {
           setError(error.message);
       }
